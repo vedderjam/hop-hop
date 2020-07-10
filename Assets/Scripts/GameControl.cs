@@ -12,6 +12,12 @@ public class GameControl : Singleton<GameControl>
     public DifficultyLevel currentDifficultyLevel;
     public UserData userData;
     public GameState gameState;
+    private AudioSource audioSource;
+
+    [Header("Audio clips")]
+    public AudioClip scoreClip;
+    public AudioClip gameOverClip;
+    public AudioClip selectClip;
 
     public static int Score
     {
@@ -40,6 +46,7 @@ public class GameControl : Singleton<GameControl>
 
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         EventBroker.GameOver += GameOver;
         EventBroker.BirdScored += BirdScored;
     }
@@ -69,6 +76,7 @@ public class GameControl : Singleton<GameControl>
         if(gameState != GameState.Playing) return;
 
         Score++;
+        audioSource.PlayOneShot(scoreClip);
     }
 
     private void GameOver()
@@ -78,6 +86,7 @@ public class GameControl : Singleton<GameControl>
         ResetScore();
         gameState = GameState.GameOver;
         Invoke(nameof(Idle), 2f);
+        audioSource.PlayOneShot(gameOverClip);
         userData.Save();
     }
     
