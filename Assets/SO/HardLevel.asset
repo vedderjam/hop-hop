@@ -17,5 +17,5 @@ MonoBehaviour:
   scrollSpeed: -2.5
   spawnRate: 2
   columnMin: -3
-  columnMax: 1.5
-  bottomColumnOffset: -12
+  columnMax: 2
+  bottomColumnOffset: -11.9

@@ -18,4 +18,4 @@ MonoBehaviour:
   spawnRate: 3
   columnMin: -2
   columnMax: 1.25
-  bottomColumnOffset: -12.75
+  bottomColumnOffset: -12.5

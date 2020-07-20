@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ec467585368bbf4faf741c4ce8da0e5, type: 3}
   m_Name: NormalLevel
   m_EditorClassIdentifier: 
-  levelName: Normal
+  level: 1
   coinsMultiplier: 1
   scrollSpeed: -2
   spawnRate: 2
   columnMin: -3
-  columnMax: 1.5
-  bottomColumnOffset: -12.5
+  columnMax: 2
+  bottomColumnOffset: -12.3
