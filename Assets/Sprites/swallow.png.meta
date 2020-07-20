@@ -1,25 +1,25 @@
 fileFormatVersion: 2
-guid: 3ac9ac5e812975f42b26ed7069ae3ec7
+guid: 8baeba78873cf2b43acaa1158e72094b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 283947483920900717
-    second: golondrina_0
+      213: -2903121822691053484
+    second: swallow_0
   - first:
-      213: 3305359990727141711
-    second: golondrina_1
+      213: 3126980968411438626
+    second: swallow_1
   - first:
-      213: 6937068942624627565
-    second: golondrina_2
+      213: 3270548919385220003
+    second: swallow_2
   - first:
-      213: 4696565108855554388
-    second: golondrina_3
+      213: 827748255805408821
+    second: swallow_3
   - first:
-      213: 4928590314638645828
-    second: golondrina_4
+      213: -1254310175300435891
+    second: swallow_4
   - first:
-      213: -5328823307240668686
-    second: golondrina_5
+      213: -2302353733840822685
+    second: swallow_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -117,13 +117,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: golondrina_0
+      name: swallow_0
       rect:
         serializedVersion: 2
-        x: 3
-        y: 97
-        width: 57
-        height: 22
+        x: 7
+        y: 243
+        width: 143
+        height: 55
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d62a8f17bb8c0f300800000000000000
-      internalID: 283947483920900717
+      spriteID: 450b0da651a06b7d0800000000000000
+      internalID: -2903121822691053484
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: golondrina_1
+      name: swallow_1
       rect:
         serializedVersion: 2
-        x: 67
-        y: 97
-        width: 57
-        height: 19
+        x: 167
+        y: 243
+        width: 143
+        height: 47
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,20 +152,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f496416266ffedd20800000000000000
-      internalID: 3305359990727141711
+      spriteID: 22e12919f94456b20800000000000000
+      internalID: 3126980968411438626
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: golondrina_2
+      name: swallow_2
       rect:
         serializedVersion: 2
-        x: 132
-        y: 97
-        width: 56
-        height: 14
+        x: 330
+        y: 243
+        width: 140
+        height: 35
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,20 +173,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d6b198bf27b654060800000000000000
-      internalID: 6937068942624627565
+      spriteID: 3a36e700ae2536d20800000000000000
+      internalID: 3270548919385220003
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: golondrina_3
+      name: swallow_3
       rect:
         serializedVersion: 2
-        x: 3
-        y: 32
-        width: 57
-        height: 15
+        x: 7
+        y: 80
+        width: 143
+        height: 38
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,20 +194,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 45144d1451d8d2140800000000000000
-      internalID: 4696565108855554388
+      spriteID: 5360bbe27a0cc7b00800000000000000
+      internalID: 827748255805408821
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: golondrina_4
+      name: swallow_4
       rect:
         serializedVersion: 2
-        x: 67
-        y: 33
-        width: 57
-        height: 14
+        x: 167
+        y: 83
+        width: 143
+        height: 35
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -215,20 +215,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 44a977347ced56440800000000000000
-      internalID: 4928590314638645828
+      spriteID: d404f0b8a8bc79ee0800000000000000
+      internalID: -1254310175300435891
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: golondrina_5
+      name: swallow_5
       rect:
         serializedVersion: 2
-        x: 131
-        y: 33
-        width: 57
-        height: 18
+        x: 327
+        y: 83
+        width: 143
+        height: 45
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -236,8 +236,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2f109157f673c06b0800000000000000
-      internalID: -5328823307240668686
+      spriteID: 36e9f1b3a756c00e0800000000000000
+      internalID: -2302353733840822685
       vertices: []
       indices: 
       edges: []

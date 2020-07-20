@@ -10,6 +10,7 @@ public class Bird : MonoBehaviour
     private Rigidbody2D rb2d;
     private Animator anim;
     private Vector3 initialPosition;
+    private int currentDifficultyLevel = 0;
 
     #region Unity Callbacks
     
@@ -18,7 +19,9 @@ public class Bird : MonoBehaviour
         EventBroker.StartPlaying += StartPlaying;
         EventBroker.StartIdling += ResetBird;
         UpdateManager.UpdateEvent += UpdateEvent;
+        EventBroker.ChangeDifficultyLevel += ChangeDifficultyLevel;
     }
+
     void Start()
     {
         initialPosition = new Vector3(-1.5f, 0f, 0f);
@@ -44,7 +47,7 @@ public class Bird : MonoBehaviour
         if(!isDead)
             EventBroker.CallGameOver();
         isDead = true;
-        anim.SetBool("Die", true);
+        anim.SetInteger("Speed", -1);
     }
 
     private void OnDestroy()
@@ -52,6 +55,7 @@ public class Bird : MonoBehaviour
         EventBroker.StartPlaying -= StartPlaying;
         EventBroker.StartIdling -= ResetBird;
         UpdateManager.UpdateEvent -= UpdateEvent;
+        EventBroker.ChangeDifficultyLevel -= ChangeDifficultyLevel;
     }
 
     private void OnDrawGizmos()
@@ -80,7 +84,7 @@ public class Bird : MonoBehaviour
     {
         rb2d.velocity = Vector2.zero;
         rb2d.AddForce(new Vector2(0f, upForce));
-        anim.SetTrigger("Flap");
+        //anim.SetTrigger("Flap");
     }
 
     private void ResetBird()
@@ -91,7 +95,16 @@ public class Bird : MonoBehaviour
         transform.rotation = Quaternion.identity;
         rb2d.bodyType = RigidbodyType2D.Kinematic;
         rb2d.WakeUp();
-        anim.SetBool("Die", false);
+        //anim.SetBool("Die", false);
+        anim.SetInteger("Speed", currentDifficultyLevel);
+    }
+
+    private void ChangeDifficultyLevel()
+    {
+        currentDifficultyLevel = (int) GameControl.Instance.currentDifficultyLevel.level;
+
+        if(currentDifficultyLevel >= 0 && currentDifficultyLevel <= 2)
+            anim.SetInteger("Speed", currentDifficultyLevel);
     }
 
     #endregion
