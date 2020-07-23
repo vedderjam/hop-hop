@@ -13,6 +13,7 @@ public class GameControl : Singleton<GameControl>
     public UserData userData;
     public GameState gameState;
     private AudioSource audioSource;
+    private Vector3 initialPosition = new Vector3(-1.5f, 0f, 0f);
 
     [Header("Audio clips")]
     public AudioClip scoreClip;
@@ -40,6 +41,13 @@ public class GameControl : Singleton<GameControl>
         private set;
     }
 
+    [Header("Birds")]
+    public Transform birdsParentTransform;
+    public List<GameObject> birdsPrefabs;
+    [SerializeField]private GameObject[] birds;
+    public GameObject currentBird;
+    private int currentBirdIndex;
+
     #endregion
 
     #region Unity Callbacks
@@ -53,8 +61,11 @@ public class GameControl : Singleton<GameControl>
 
     private void Start()
     {
+        birds = new GameObject[birdsPrefabs.Capacity];
         userData.Load();
         currentDifficultyLevel = userData.GetDifficultyLevel();
+        currentBirdIndex = userData.CurrentBirdIndex;
+        SetBird(currentBirdIndex);
         EventBroker.CallChangeDifficultyLevel();
         Score = 0;
         Record = userData.GetCurrentLevelRecord();
@@ -150,5 +161,27 @@ public class GameControl : Singleton<GameControl>
             EventBroker.CallChangeDifficultyLevel();
         }
     }
+
+    public void SetBird(int index)
+    {
+        if(birds[index] == null)
+        {
+            if(currentBird != null)
+                currentBird.SetActive(false); // Prior bird
+            
+            birds[index] = Instantiate(birdsPrefabs[index], initialPosition, Quaternion.identity, birdsParentTransform);
+            currentBird = birds[index];
+        }
+        else
+        {
+            currentBird.SetActive(false);
+            currentBird = birds[index];
+            currentBird.SetActive(true);
+        }
+
+        currentBirdIndex = index;
+        userData.CurrentBirdIndex = currentBirdIndex;
+    }
+
     #endregion
 }

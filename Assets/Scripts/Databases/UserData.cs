@@ -56,6 +56,7 @@ public class UserData : ScriptableObject
         }
     }
 
+    public int CurrentBirdIndex{get; set;}
     #endregion
 
     #region Methods
@@ -126,6 +127,7 @@ public class UserData : ScriptableObject
         PlayerPrefs.SetInt(nameof(NormalRecord), NormalRecord);
         PlayerPrefs.SetInt(nameof(HardRecord), HardRecord);
         PlayerPrefs.SetInt(nameof(Coins), Coins);
+        PlayerPrefs.SetInt(nameof(CurrentBirdIndex), CurrentBirdIndex);
         PlayerPrefs.Save();
     }
     
@@ -153,6 +155,8 @@ public class UserData : ScriptableObject
         if(PlayerPrefs.HasKey(nameof(Coins)))
             Coins = PlayerPrefs.GetInt(nameof(Coins));
         else Coins = 0;
+
+        CurrentBirdIndex = PlayerPrefs.GetInt(nameof(CurrentBirdIndex), 0);
     }
 
     #endregion

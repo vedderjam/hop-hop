@@ -9,6 +9,12 @@ public class UIManager : Singleton<UIManager>
     public GameObject gameOverPanel;
     public GameObject startButton;
     public GameObject difficultyButton;
+    public GameObject birdsSelectionButton;
+    
+    [Header("Birds selection")]
+    public BirdHouse birdHouse;
+    public Transform birdsButtonsParent;
+    public Button[] birdsButtons;
 
     [Header("Text")]
     public Text scoreText;
@@ -30,6 +36,7 @@ public class UIManager : Singleton<UIManager>
     private void Start()
     {
         SetUITexts();
+        SetBirdsSelectionButtons();
     }
 
     private void SetUITexts()
@@ -37,6 +44,28 @@ public class UIManager : Singleton<UIManager>
         scoreText.text = $"Score: {GameControl.Score}";
         hiScoreText.text = $"Hi-Score: {GameControl.Record}";
         coinsText.text = $"Coins: {GameControl.Coins}";
+    }
+
+    private void SetBirdsSelectionButtons()
+    {
+        birdsButtons = birdsButtonsParent.GetComponentsInChildren<Button>();
+
+        int numberOfBirds = birdHouse.birdInfos.Capacity;
+        int count = 0;
+        foreach(var button in birdsButtons)
+        {
+            if(count < numberOfBirds)
+            {
+                var birdInfo = birdHouse.birdInfos[count];
+                button.image.sprite = birdInfo.sprite;
+                button.GetComponentInChildren<Text>().text = birdInfo.name;
+                int i = count; // Dear closure
+                button.onClick.AddListener(delegate{ 
+                    GameControl.Instance.SetBird(i); 
+                });
+                count++;
+            }
+        }
     }
 
     private void StartPlaying()
@@ -68,6 +97,7 @@ public class UIManager : Singleton<UIManager>
         gameOverPanel.SetActive(false);
         startButton.SetActive(true);
         difficultyButton.SetActive(true);
+        birdsSelectionButton.SetActive(true);
     }
 
     private void BirdScored()
