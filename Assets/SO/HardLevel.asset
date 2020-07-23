@@ -15,7 +15,7 @@ MonoBehaviour:
   level: 2
   coinsMultiplier: 2
   scrollSpeed: -2.5
-  spawnRate: 2
+  spawnRate: 2.2
   columnMin: -3
   columnMax: 2
   bottomColumnOffset: -11.9
