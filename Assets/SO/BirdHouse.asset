@@ -21,7 +21,13 @@ MonoBehaviour:
       type: 3}
   - name: Hirundo Tahitica
     sprite: {fileID: 21300000, guid: d997907ea4626874da129e57eb63d9d7, type: 3}
-    prize: 500
+    prize: 100
     purchased: 0
+    prefab: {fileID: 8501833117856623768, guid: 31b88ece291dafb4b9dce5942cb4544f,
+      type: 3}
+  - name: Hirundo X
+    sprite: {fileID: 21300000, guid: d997907ea4626874da129e57eb63d9d7, type: 3}
+    prize: 1
+    purchased: 1
     prefab: {fileID: 8501833117856623768, guid: 31b88ece291dafb4b9dce5942cb4544f,
       type: 3}

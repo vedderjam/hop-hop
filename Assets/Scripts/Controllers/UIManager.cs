@@ -6,7 +6,10 @@ using UnityEngine.UI;
 public class UIManager : Singleton<UIManager>
 {
     [Header("GameObject")]
+    public GameObject difficultyPanel;
     public GameObject gameOverPanel;
+    public GameObject mainUIPanel;
+    public GameObject birdsSelectionPanel;
     public GameObject startButton;
     public GameObject difficultyButton;
     public GameObject birdsSelectionButton;
@@ -22,6 +25,7 @@ public class UIManager : Singleton<UIManager>
     public Text coinsText;
     public Text finalScoreText;
     public Text rewardText;
+
     public List<Image> difficultyLevelImages;
 
     private void Awake()
@@ -31,6 +35,9 @@ public class UIManager : Singleton<UIManager>
         EventBroker.StartIdling += Idle;
         EventBroker.StartPlaying += StartPlaying;
         EventBroker.ChangeDifficultyLevel += ChangeDifficultyLevel;
+        EventBroker.NotEnoughCoins += NotEnoughCoins;
+        EventBroker.BirdPurchased += BirdPurchased;
+        EventBroker.BirdSelected += BirdSelected;
     }
 
     private void Start()
@@ -56,12 +63,23 @@ public class UIManager : Singleton<UIManager>
         {
             if(count < numberOfBirds)
             {
+                button.interactable = true;
+                Debug.Assert(button.interactable);
                 var birdInfo = birdHouse.birdInfos[count];
                 button.image.sprite = birdInfo.sprite;
-                button.GetComponentInChildren<Text>().text = birdInfo.name;
+                var texts = button.GetComponentsInChildren<Text>(true);
+                texts[0].text = birdInfo.name;
+
+                if (!birdInfo.purchased)
+                {
+                    texts[1].text = birdInfo.prize.ToString();
+                    texts[1].gameObject.SetActive(true);
+                    button.transform.GetChild(2).gameObject.SetActive(true); // activate the coin image
+                }
+
                 int i = count; // Dear closure
                 button.onClick.AddListener(delegate{ 
-                    GameControl.Instance.SetBird(i); 
+                    GameControl.Instance.TryToBuyAndOrSelectBird(i); 
                 });
                 count++;
             }
@@ -81,6 +99,9 @@ public class UIManager : Singleton<UIManager>
         EventBroker.StartIdling -= Idle;
         EventBroker.StartPlaying -= StartPlaying;
         EventBroker.ChangeDifficultyLevel -= ChangeDifficultyLevel;
+        EventBroker.NotEnoughCoins -= NotEnoughCoins;
+        EventBroker.BirdPurchased -= BirdPurchased;
+        EventBroker.BirdSelected -= BirdSelected;
     }
 
     private void GameOver()
@@ -110,6 +131,29 @@ public class UIManager : Singleton<UIManager>
         UpdateHighScore();
         UpdateHighScoreColor();
         UpdateDifficultyButtonsColor();
+    }
+
+    private void NotEnoughCoins()
+    {
+        Debug.Log("Not enough coins");
+    }
+    
+    private void BirdPurchased(int index)
+    {
+        UpdateCoins();
+        HideBirdPrize(index);
+    }
+    
+    private void HideBirdPrize(int index)
+    {
+        var children = birdsButtons[index].GetComponentsInChildren<RectTransform>(true);
+        children[2].gameObject.SetActive(false); // Prize text
+        children[3].gameObject.SetActive(false); // Coin Image
+    }
+
+    private void BirdSelected()
+    {
+        ToMainUIPanel();
     }
 
     private void UpdateHighScore()
@@ -172,5 +216,14 @@ public class UIManager : Singleton<UIManager>
     {
         finalScoreText.text = scoreText.text;
         rewardText.text =  $"Reward: {GameControl.Reward} coins";
+    }
+
+    private void ToMainUIPanel()
+    {
+        difficultyPanel.SetActive(false);
+        gameOverPanel.SetActive(false);
+        birdsSelectionPanel.SetActive(false);
+
+        mainUIPanel.SetActive(true);
     }
 }

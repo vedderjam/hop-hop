@@ -41,4 +41,28 @@ public class BirdHouse : ScriptableObject
             }
         }
     }
+
+    public void Load()
+    {
+        int capacity = birdInfos.Capacity;
+        for(int i = 0; i < capacity; i++)
+        {
+            if(i == 0) // The first bird is always "purchased"
+            {
+                birdInfos[i].purchased = true;
+            }
+            else
+            {
+                birdInfos[i].purchased = PlayerPrefs.GetInt(birdInfos[i].name, 0) == 1 ? true : false;
+            }
+        }
+    }
+
+    public void Save()
+    {
+        foreach(var birdInfo in birdInfos)
+        {
+            PlayerPrefs.SetInt(birdInfo.name, birdInfo.purchased == true ? 1 : 0);
+        }
+    }
 }

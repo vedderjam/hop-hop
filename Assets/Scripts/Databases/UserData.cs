@@ -21,7 +21,7 @@ public class UserData : ScriptableObject
         }
     }
 
-        private int _easyRecord;
+    private int _easyRecord;
     public int EasyRecord
     {
         get {return _easyRecord;}
@@ -32,7 +32,7 @@ public class UserData : ScriptableObject
         }
     }
 
-        private int _hardRecord;
+    private int _hardRecord;
     public int HardRecord
     {
         get {return _hardRecord;}
@@ -77,6 +77,11 @@ public class UserData : ScriptableObject
     public void AddCoins(int coinsToAdd)
     {
         Coins += coinsToAdd;
+    }
+
+    public void SetCoins(int coins)
+    {
+        Coins = coins;
     }
 
     public int GetCurrentLevelRecord()

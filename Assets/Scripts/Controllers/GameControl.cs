@@ -43,10 +43,13 @@ public class GameControl : Singleton<GameControl>
 
     [Header("Birds")]
     public Transform birdsParentTransform;
-    public List<GameObject> birdsPrefabs;
     [SerializeField]private GameObject[] birds;
     public GameObject currentBird;
     private int currentBirdIndex;
+    public BirdHouse birdHouse;
+
+    [Space]
+    public Animator moneyEffectAnimator;
 
     #endregion
 
@@ -61,11 +64,11 @@ public class GameControl : Singleton<GameControl>
 
     private void Start()
     {
-        birds = new GameObject[birdsPrefabs.Capacity];
-        userData.Load();
+        birds = new GameObject[birdHouse.birdInfos.Capacity];
+        Load();
         currentDifficultyLevel = userData.GetDifficultyLevel();
-        currentBirdIndex = userData.CurrentBirdIndex;
-        SetBird(currentBirdIndex);
+        currentBirdIndex = GetCurrentBirdIndex();
+        SelectBird(currentBirdIndex);
         EventBroker.CallChangeDifficultyLevel();
         Score = 0;
         Record = userData.GetCurrentLevelRecord();
@@ -82,6 +85,24 @@ public class GameControl : Singleton<GameControl>
     #endregion
 
     #region Methods
+    private void Load()
+    {
+        userData.Load();
+        birdHouse.Load();
+    }
+
+    private int GetCurrentBirdIndex()
+    {
+        int current = userData.CurrentBirdIndex;
+
+        if(current >= birdHouse.birdInfos.Capacity)
+        {
+            current = 0;
+        }
+
+        return current;
+    }
+
     private void BirdScored()
     {
         if(gameState != GameState.Playing) return;
@@ -93,12 +114,13 @@ public class GameControl : Singleton<GameControl>
     private void GameOver()
     {
         UpdateHighScore();
-        UpdateCoins();
+        UpdateCoinsAfterLosing();
         ResetScore();
         gameState = GameState.GameOver;
         Invoke(nameof(Idle), 2f);
         audioSource.PlayOneShot(gameOverClip);
         userData.Save();
+        birdHouse.Save(); // REMOVE
     }
     
     private void UpdateHighScore()
@@ -120,7 +142,7 @@ public class GameControl : Singleton<GameControl>
         }
     }
 
-    private void UpdateCoins()
+    private void UpdateCoinsAfterLosing()
     {
         Reward = Score * currentDifficultyLevel.coinsMultiplier;
         userData.AddCoins(Reward);
@@ -162,14 +184,48 @@ public class GameControl : Singleton<GameControl>
         }
     }
 
-    public void SetBird(int index)
+    public void TryToBuyAndOrSelectBird(int index)
+    {
+        if (!birdHouse.birdInfos[index].purchased)
+        {
+            Debug.Log(birdHouse.birdInfos[index].name);
+            var coins = Coins;
+            var purchased = birdHouse.Purchase(index, ref coins);
+            if(purchased)
+            {
+                Coins = coins;
+                userData.SetCoins(Coins);
+                ShowMoneySpentEffect(index);
+                EventBroker.CallBirdPurchased(index);
+                SelectBird(index);
+                userData.Save();
+                birdHouse.Save();
+            }
+            else
+            {
+                audioSource.PlayOneShot(gameOverClip);
+                EventBroker.CallNotEnoughCoins();
+            }
+        }
+        else SelectBird(index);
+
+    }
+
+    private void ShowMoneySpentEffect(int birdIndex)
+    {
+        moneyEffectAnimator.gameObject.GetComponentInChildren<Text>().text = $"-{birdHouse.birdInfos[birdIndex].prize}";
+        moneyEffectAnimator.gameObject.SetActive(true);
+        moneyEffectAnimator.SetTrigger("Fade");
+    }
+
+    private void SelectBird(int index)
     {
         if(birds[index] == null)
         {
             if(currentBird != null)
                 currentBird.SetActive(false); // Prior bird
             
-            birds[index] = Instantiate(birdsPrefabs[index], initialPosition, Quaternion.identity, birdsParentTransform);
+            birds[index] = Instantiate(birdHouse.birdInfos[index].prefab, initialPosition, Quaternion.identity, birdsParentTransform);
             currentBird = birds[index];
         }
         else
@@ -181,6 +237,7 @@ public class GameControl : Singleton<GameControl>
 
         currentBirdIndex = index;
         userData.CurrentBirdIndex = currentBirdIndex;
+        EventBroker.CallBirdSelected();
     }
 
     #endregion
