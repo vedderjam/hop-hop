@@ -48,9 +48,9 @@ public class UIManager : Singleton<UIManager>
 
     private void SetUITexts()
     {
-        scoreText.text = $"Score: {GameControl.Score}";
-        hiScoreText.text = $"Hi-Score: {GameControl.Record}";
-        coinsText.text = $"Coins: {GameControl.Coins}";
+        scoreText.text = $"SCORE: {GameControl.Score}";
+        hiScoreText.text = $"HI-SCORE: {GameControl.Record}";
+        coinsText.text = $"COINS: {GameControl.Coins}";
     }
 
     private void SetBirdsSelectionButtons()
@@ -89,7 +89,7 @@ public class UIManager : Singleton<UIManager>
     private void StartPlaying()
     {
         startButton.SetActive(false);
-        scoreText.text = "Score: 0";
+        scoreText.text = "SCORE: 0";
     }
 
     private void OnDestroy()
@@ -123,7 +123,7 @@ public class UIManager : Singleton<UIManager>
 
     private void BirdScored()
     {
-        scoreText.text = $"Score: {GameControl.Score}";
+        scoreText.text = $"SCORE: {GameControl.Score}";
     }
 
     private void ChangeDifficultyLevel()
@@ -158,7 +158,7 @@ public class UIManager : Singleton<UIManager>
 
     private void UpdateHighScore()
     {
-        hiScoreText.text = $"Hi-Score: {GameControl.Record}";
+        hiScoreText.text = $"HI-SCORE: {GameControl.Record}";
     }
 
     private void UpdateHighScoreColor()
@@ -209,13 +209,13 @@ public class UIManager : Singleton<UIManager>
 
     private void UpdateCoins()
     {
-        coinsText.text = $"Coins: {GameControl.Coins}";
+        coinsText.text = $"COINS: {GameControl.Coins}";
     }
 
     private void UpdateRewardText()
     {
         finalScoreText.text = scoreText.text;
-        rewardText.text =  $"Reward: {GameControl.Reward} coins";
+        rewardText.text =  $"REWARD: {GameControl.Reward} COINS";
     }
 
     private void ToMainUIPanel()
