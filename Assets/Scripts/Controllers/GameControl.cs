@@ -188,7 +188,6 @@ public class GameControl : Singleton<GameControl>
     {
         if (!birdHouse.birdInfos[index].purchased)
         {
-            Debug.Log(birdHouse.birdInfos[index].name);
             var coins = Coins;
             var purchased = birdHouse.Purchase(index, ref coins);
             if(purchased)
