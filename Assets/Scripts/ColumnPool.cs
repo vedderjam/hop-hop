@@ -5,7 +5,7 @@ using UnityEngine;
 public class ColumnPool : MonoBehaviour
 {
     public int columnPoolSize = 5;
-    public GameObject columnPrefab;
+    public List<GameObject> logsPrefabs;
     private float spawnRate = 2f;
     private float columnMin = -1f;
     private float columnMax = 3.5f;
@@ -28,7 +28,10 @@ public class ColumnPool : MonoBehaviour
         columns = new GameObject[columnPoolSize];
         for (int i = 0; i < columnPoolSize; i++)
         {
-            columns[i] = Instantiate(columnPrefab, objectPoolPosition, Quaternion.identity);
+            float rnd = Random.value;
+            Debug.Log(rnd);
+            var log = rnd < 0.5f ? logsPrefabs[0] : logsPrefabs[1];
+            columns[i] = Instantiate(log, objectPoolPosition, Quaternion.identity);
         }
     }
 
