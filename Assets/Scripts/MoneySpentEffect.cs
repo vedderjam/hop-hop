@@ -7,7 +7,6 @@ public class MoneySpentEffect : MonoBehaviour
     public void OnEffectStarted()
     {
         Debug.Log("Effect started");
-        //gameObject.SetActive(true);
     }
 
     public void OnEffectFinished()

@@ -29,7 +29,6 @@ public class ColumnPool : MonoBehaviour
         for (int i = 0; i < columnPoolSize; i++)
         {
             float rnd = Random.value;
-            Debug.Log(rnd);
             var log = rnd < 0.5f ? logsPrefabs[0] : logsPrefabs[1];
             columns[i] = Instantiate(log, objectPoolPosition, Quaternion.identity);
         }
