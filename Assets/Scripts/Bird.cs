@@ -8,9 +8,15 @@ public class Bird : MonoBehaviour
 
     private bool isDead = true;
     private Rigidbody2D rb2d;
-    [SerializeField]private Animator anim;
+    private Animator anim;
     private Vector3 initialPosition;
     private int currentDifficultyLevel = 0;
+
+    [Header("Sounds")]
+    public AudioSource audioSource;
+    public AudioClip scoreClip;
+    public AudioClip dieClip;
+    public AudioClip hopClip;
 
     #region Unity Callbacks
     
@@ -87,6 +93,8 @@ public class Bird : MonoBehaviour
     {
         rb2d.velocity = Vector2.zero;
         rb2d.AddForce(new Vector2(0f, upForce));
+
+        audioSource.PlayOneShot(hopClip);
     }
 
     private void ResetBird()
