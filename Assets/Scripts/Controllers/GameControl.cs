@@ -16,8 +16,8 @@ public class GameControl : Singleton<GameControl>
     private Vector3 initialPosition = new Vector3(-1.5f, 0f, 0f);
 
     [Header("Audio clips")]
-    public AudioClip scoreClip;
-    public AudioClip gameOverClip;
+    private AudioClip scoreClip;
+    private AudioClip gameOverClip;
     public AudioClip selectClip;
 
     public static int Score
@@ -40,6 +40,16 @@ public class GameControl : Singleton<GameControl>
         get;
         private set;
     }
+    public static int MoreReward
+    {
+        get;
+        private set;
+    }
+    public static bool NewRecord
+    {
+        get;
+        private set;
+    }
 
     [Header("Birds")]
     public Transform birdsParentTransform;
@@ -51,6 +61,9 @@ public class GameControl : Singleton<GameControl>
     [Space]
     public Animator moneyEffectAnimator;
 
+    private int minReward = 10;
+    private int maxReward = 100;
+
     #endregion
 
     #region Unity Callbacks
@@ -58,8 +71,12 @@ public class GameControl : Singleton<GameControl>
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        
         EventBroker.GameOver += GameOver;
         EventBroker.BirdScored += BirdScored;
+        EventBroker.GamePaused += PauseGame;
+        EventBroker.GameResumed += ResumeGame;
+        EventBroker.EarnedRewardedAd += EventBroker_EarnedRewardedAd;
     }
 
     private void Start()
@@ -81,7 +98,11 @@ public class GameControl : Singleton<GameControl>
     {
         EventBroker.GameOver -= GameOver;
         EventBroker.BirdScored -= BirdScored;
+        EventBroker.GamePaused -= PauseGame;
+        EventBroker.GameResumed -= ResumeGame;
+        EventBroker.EarnedRewardedAd -= EventBroker_EarnedRewardedAd;
     }
+
     #endregion
 
     #region Methods
@@ -114,39 +135,78 @@ public class GameControl : Singleton<GameControl>
     private void GameOver()
     {
         UpdateHighScore();
-        UpdateCoinsAfterLosing();
+        UpdateRewardAndCoinsAfterLosing();
         ResetScore();
         gameState = GameState.GameOver;
-        Invoke(nameof(Idle), 2f);
+        //Invoke(nameof(Idle), 2f); Invoked with a button
         audioSource.PlayOneShot(gameOverClip);
         userData.Save();
         birdHouse.Save(); // REMOVE
     }
     
+    private void PauseGame()
+    {
+        print("GameControl PauseGame");
+        Time.timeScale = 0.0f;
+    }
+
+    private void ResumeGame()
+    {
+        print("GameControl ResumeGame");
+        Time.timeScale = 1.0f;
+    }
+    
+    private void EventBroker_EarnedRewardedAd()
+    {
+        Reward += MoreReward;
+        userData.AddCoins(MoreReward);
+        Coins = userData.Coins;
+    }
+
     private void UpdateHighScore()
     {
         switch (currentDifficultyLevel.level)
         {
             case Difficulty.Easy:
+                if(Score > userData.EasyRecord)
+                    NewRecord = true;
+                else NewRecord = false;
                 userData.EasyRecord = Score;
                 Record = userData.EasyRecord;
                 break;
             case Difficulty.Normal:
+                if(Score > userData.NormalRecord)
+                    NewRecord = true;
+                else NewRecord = false;
                 userData.NormalRecord = Score;
                 Record = userData.NormalRecord;
                 break;
             case Difficulty.Hard:
+                if(Score > userData.HardRecord)
+                    NewRecord = true;
+                else NewRecord = false;
                 userData.HardRecord = Score;
                 Record = userData.HardRecord;
                 break;
         }
     }
 
-    private void UpdateCoinsAfterLosing()
+    private void UpdateRewardAndCoinsAfterLosing()
     {
-        Reward = Score * currentDifficultyLevel.coinsMultiplier;
+        var coinsMultiplier = currentDifficultyLevel.coinsMultiplier;
+
+        Reward = (int)(Score * coinsMultiplier);
         userData.AddCoins(Reward);
         Coins = userData.Coins;
+
+        MoreReward = CalculateMoreReward();
+    }
+
+    private int CalculateMoreReward()
+    {
+        //var moreReward = (int)(Reward + (Reward * currentDifficultyLevel.coinsMultiplier));
+        //return Mathf.Clamp(moreReward, minReward, maxReward);
+        return Mathf.Clamp(Reward, minReward, maxReward);
     }
 
     private void ResetReward()
@@ -154,7 +214,7 @@ public class GameControl : Singleton<GameControl>
         Reward = 0;
     }
 
-    private void Idle()
+    public void Idle()
     {
         if(gameState == GameState.GameOver)
         {
@@ -226,6 +286,8 @@ public class GameControl : Singleton<GameControl>
             
             birds[index] = Instantiate(birdHouse.birdInfos[index].prefab, initialPosition, Quaternion.identity, birdsParentTransform);
             currentBird = birds[index];
+            scoreClip = currentBird.GetComponent<Bird>().scoreClip;
+            gameOverClip = currentBird.GetComponent<Bird>().dieClip;
         }
         else
         {
