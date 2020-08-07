@@ -5,10 +5,13 @@ public class ScrollingObject : MonoBehaviour
 {
     private Rigidbody2D rb2d;
     [SerializeField]private float scrollSpeed = -1.5f;
+    public bool isBackGround;
+    private string sortingLayer;
 
     private void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        sortingLayer = GetComponent<SpriteRenderer>().sortingLayerName;
 
         EventBroker.StartPlaying += Setup;
         EventBroker.StartIdling += Setup;
@@ -41,7 +44,13 @@ public class ScrollingObject : MonoBehaviour
 
     private void ChangeDifficultyLevel()
     {
-        scrollSpeed = GameControl.Instance.currentDifficultyLevel.scrollSpeed;
+        if(sortingLayer == "Background")
+            scrollSpeed = GameControl.Instance.currentDifficultyLevel.backGroundScrollSpeed;
+        else if(sortingLayer == "Foreground")
+            scrollSpeed = GameControl.Instance.currentDifficultyLevel.foreGroundScrollSpeed;
+        else
+            scrollSpeed = GameControl.Instance.currentDifficultyLevel.scrollSpeed;
+        
         Setup();
     }
 }
