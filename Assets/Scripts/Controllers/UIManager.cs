@@ -13,7 +13,10 @@ public class UIManager : Singleton<UIManager>
     public GameObject startButton;
     public GameObject difficultyButton;
     public GameObject birdsSelectionButton;
-    
+    public GameObject gamePausedPanel;
+    public GameObject pauseButton;
+    public GameObject newRecord;
+
     [Header("Birds selection")]
     public BirdHouse birdHouse;
     public Transform birdsButtonsParent;
@@ -23,9 +26,18 @@ public class UIManager : Singleton<UIManager>
     public Text scoreText;
     public Text hiScoreText;
     public Text coinsText;
+    public Text selectionScreenCoinsText;
     public Text finalScoreText;
     public Text rewardText;
+    public Text moreRewardText;
 
+    [Header("Animators")]
+    public Animator coinsTextAnimator;
+    public Animator coinsImageAnimator;
+    public Animator rewardTextAnimator;
+    public Animator hiScoreTextAnimator;
+
+    [Space]
     public List<Image> difficultyLevelImages;
 
     private void Awake()
@@ -38,19 +50,27 @@ public class UIManager : Singleton<UIManager>
         EventBroker.NotEnoughCoins += NotEnoughCoins;
         EventBroker.BirdPurchased += BirdPurchased;
         EventBroker.BirdSelected += BirdSelected;
+        EventBroker.GamePaused += PauseGame;
+        EventBroker.GameResumed += ResumeGame;
+        EventBroker.EarnedRewardedAd += EventBroker_EarnedRewardedAd;
     }
 
     private void Start()
     {
         SetUITexts();
         SetBirdsSelectionButtons();
+
+        #if DEVELOPMENT_BUILD || UNITY_EDITOR
+            pauseButton.SetActive(true);
+        #endif
     }
 
     private void SetUITexts()
     {
-        scoreText.text = $"SCORE: {GameControl.Score}";
-        hiScoreText.text = $"HI-SCORE: {GameControl.Record}";
-        coinsText.text = $"COINS: {GameControl.Coins}";
+        scoreText.text = $"{GameControl.Score}";
+        hiScoreText.text = $"RECORD:{GameControl.Record}";
+        coinsText.text = GameControl.Coins.ToString();
+        selectionScreenCoinsText.text = GameControl.Coins.ToString();
     }
 
     private void SetBirdsSelectionButtons()
@@ -89,7 +109,7 @@ public class UIManager : Singleton<UIManager>
     private void StartPlaying()
     {
         startButton.SetActive(false);
-        scoreText.text = "SCORE: 0";
+        scoreText.text = "0";
     }
 
     private void OnDestroy()
@@ -102,19 +122,23 @@ public class UIManager : Singleton<UIManager>
         EventBroker.NotEnoughCoins -= NotEnoughCoins;
         EventBroker.BirdPurchased -= BirdPurchased;
         EventBroker.BirdSelected -= BirdSelected;
+        EventBroker.GamePaused -= PauseGame;
+        EventBroker.GameResumed -= ResumeGame;
+        EventBroker.EarnedRewardedAd -= EventBroker_EarnedRewardedAd;
     }
 
     private void GameOver()
     {
         gameOverPanel.SetActive(true);
-        UpdateHighScore();
-        UpdateHighScoreColor();
-        UpdateCoins();
+
         UpdateRewardText();
     }
 
     private void Idle()
     {
+        UpdateHighScore();
+        UpdateHighScoreColor();
+        UpdateCoins();
         gameOverPanel.SetActive(false);
         startButton.SetActive(true);
         difficultyButton.SetActive(true);
@@ -123,7 +147,7 @@ public class UIManager : Singleton<UIManager>
 
     private void BirdScored()
     {
-        scoreText.text = $"SCORE: {GameControl.Score}";
+        scoreText.text = $"{GameControl.Score}";
     }
 
     private void ChangeDifficultyLevel()
@@ -156,9 +180,41 @@ public class UIManager : Singleton<UIManager>
         ToMainUIPanel();
     }
 
+    public void RaiseGamePausedEvent()
+    {
+        EventBroker.CallGamePaused();
+    }
+
+    private void PauseGame()
+    {
+        print("UIManager PauseGame");
+        mainUIPanel.SetActive(false);
+        gamePausedPanel.SetActive(true);
+    }
+
+    public void RaiseResumeGameEvent()
+    {
+        EventBroker.CallGameResumed();
+    }
+
+    private void ResumeGame()
+    {
+        print("UIManager ResumeGame");
+        mainUIPanel.SetActive(true);
+        gamePausedPanel.SetActive(false);
+    }
+    
+    private void EventBroker_EarnedRewardedAd()
+    {
+        rewardText.text = GameControl.Reward.ToString();
+        rewardTextAnimator.SetTrigger("Flash");
+    }
+
     private void UpdateHighScore()
     {
-        hiScoreText.text = $"HI-SCORE: {GameControl.Record}";
+        hiScoreText.text = $"RECORD:{GameControl.Record}";
+        if(GameControl.NewRecord)
+            hiScoreTextAnimator.SetTrigger("Flash");
     }
 
     private void UpdateHighScoreColor()
@@ -209,13 +265,25 @@ public class UIManager : Singleton<UIManager>
 
     private void UpdateCoins()
     {
-        coinsText.text = $"COINS: {GameControl.Coins}";
+        selectionScreenCoinsText.text = GameControl.Coins.ToString();
+        coinsText.text = GameControl.Coins.ToString();
+        coinsTextAnimator.SetTrigger("Flash");
+        coinsImageAnimator.SetTrigger("Flash");
     }
 
     private void UpdateRewardText()
     {
+        if(GameControl.NewRecord)
+            newRecord.SetActive(true);
+        else newRecord.SetActive(false);
+
         finalScoreText.text = scoreText.text;
-        rewardText.text =  $"REWARD: {GameControl.Reward} COINS";
+        rewardText.text =  GameControl.Reward.ToString();
+        
+        if(GameControl.MoreReward == GameControl.Reward)
+            moreRewardText.text = $"x2";
+        else 
+            moreRewardText.text = $"+{GameControl.MoreReward}";
     }
 
     private void ToMainUIPanel()
