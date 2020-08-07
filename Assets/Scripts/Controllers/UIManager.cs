@@ -246,8 +246,9 @@ public class UIManager : Singleton<UIManager>
                 difficultyLevelImages[2].color = Color.white;
                 break;
             case Difficulty.Normal:
+                Debug.Log("NORMAL");
                 difficultyLevelImages[0].color = Color.white;
-                difficultyLevelImages[1].color = Color.yellow;
+                difficultyLevelImages[1].color = Color.grey;
                 difficultyLevelImages[2].color = Color.white;
                 break;
             case Difficulty.Hard:
