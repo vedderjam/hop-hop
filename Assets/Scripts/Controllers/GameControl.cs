@@ -136,6 +136,7 @@ public class GameControl : Singleton<GameControl>
     {
         UpdateHighScore();
         UpdateRewardAndCoinsAfterLosing();
+        UpdateBirdAggregatedScore();
         ResetScore();
         gameState = GameState.GameOver;
         //Invoke(nameof(Idle), 2f); Invoked with a button
@@ -144,6 +145,11 @@ public class GameControl : Singleton<GameControl>
         birdHouse.Save(); // REMOVE
     }
     
+    private void UpdateBirdAggregatedScore()
+    {
+        birdHouse.birdInfos[userData.CurrentBirdIndex].aggregatedScore += Score;
+    }
+
     private void PauseGame()
     {
         print("GameControl PauseGame");

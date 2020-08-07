@@ -10,6 +10,7 @@ public class BirdInfo
     public int prize;
     public bool purchased;
     public GameObject prefab;
+    public int aggregatedScore;
 }
 
 [CreateAssetMenu]
@@ -55,6 +56,7 @@ public class BirdHouse : ScriptableObject
             {
                 birdInfos[i].purchased = PlayerPrefs.GetInt(birdInfos[i].name, 0) == 1 ? true : false;
             }
+            birdInfos[i].aggregatedScore = PlayerPrefs.GetInt($"{birdInfos[i].name}_aggregatedScore", 0);
         }
     }
 
@@ -63,6 +65,7 @@ public class BirdHouse : ScriptableObject
         foreach(var birdInfo in birdInfos)
         {
             PlayerPrefs.SetInt(birdInfo.name, birdInfo.purchased == true ? 1 : 0);
+            PlayerPrefs.SetInt($"{birdInfo.name}_aggregatedScore", birdInfo.aggregatedScore);
         }
     }
 }
