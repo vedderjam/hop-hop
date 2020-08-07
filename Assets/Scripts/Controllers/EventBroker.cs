@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 public class EventBroker
 {
@@ -10,6 +11,9 @@ public class EventBroker
     public static event Action NotEnoughCoins;
     public static event Action<int> BirdPurchased;
     public static event Action BirdSelected;
+    public static event Action GamePaused;
+    public static event Action GameResumed;
+    public static event Action EarnedRewardedAd;
 
     public static void CallGameOver()
     {
@@ -49,5 +53,22 @@ public class EventBroker
     public static void CallBirdSelected()
     {
         BirdSelected?.Invoke();
+    }
+
+    public static void CallGamePaused()
+    {
+        MonoBehaviour.print("Event: PAUSE GAME");
+        GamePaused?.Invoke();
+    }
+
+    public static void CallGameResumed()
+    {
+        MonoBehaviour.print("Event: RESUME GAME");
+        GameResumed?.Invoke();
+    }
+
+    public static void CallEarnedRewardedAd()
+    {
+        EarnedRewardedAd?.Invoke();
     }
 }
