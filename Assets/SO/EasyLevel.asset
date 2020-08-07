@@ -14,8 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 0
   coinsMultiplier: 0
-  scrollSpeed: -1.5
+  scrollSpeed: -2
+  foreGroundScrollSpeed: -2.5
+  backGroundScrollSpeed: -0.5
   spawnRate: 3
   columnMin: -2
   columnMax: 1.25
   bottomColumnOffset: -12.5
+  minOffset: -2
+  maxOffset: 2
+  bushOffset: 4

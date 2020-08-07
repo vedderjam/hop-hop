@@ -13,9 +13,14 @@ MonoBehaviour:
   m_Name: NormalLevel
   m_EditorClassIdentifier: 
   level: 1
-  coinsMultiplier: 1
-  scrollSpeed: -2
-  spawnRate: 2.2
+  coinsMultiplier: 0.5
+  scrollSpeed: -2.5
+  foreGroundScrollSpeed: -3
+  backGroundScrollSpeed: -0.83
+  spawnRate: 2
   columnMin: -3
   columnMax: 2
   bottomColumnOffset: -12.3
+  minOffset: -1.5
+  maxOffset: 1.5
+  bushOffset: 3
