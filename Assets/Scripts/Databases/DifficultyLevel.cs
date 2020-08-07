@@ -7,13 +7,18 @@ public enum Difficulty {Easy, Normal, Hard}
 public class DifficultyLevel : ScriptableObject
 {
     public Difficulty level = Difficulty.Normal;
-    public int coinsMultiplier = 1;
+    public float coinsMultiplier = 1;
     public float scrollSpeed = -1.5f;
+    public float foreGroundScrollSpeed = -1.5f;
+    public float backGroundScrollSpeed = -1.5f;
     public float spawnRate = 2f;
     public float columnMin = -1f;
     public float columnMax = 3.5f;
     public float bottomColumnOffset = -12f;
-
+    public float minOffset = -1.5f;
+    public float maxOffset = 1.5f;
+    public float bushOffset = 3f;
+    
     public DifficultyLevel()
     {
         level = Difficulty.Normal;
@@ -23,9 +28,13 @@ public class DifficultyLevel : ScriptableObject
         columnMin = -1f;
         columnMax = 3.5f;
         bottomColumnOffset = -12f;
+        minOffset = -1.5f;
+        maxOffset = 1.5f;
+        bushOffset = 3f;
     }
 
-    public DifficultyLevel(Difficulty level, int coinsMultiplier, float scrollSpeed, float spawnRate, float columnMin, float columnMax, float bottomColumnOffset)
+    public DifficultyLevel(Difficulty level, float coinsMultiplier, float scrollSpeed, float spawnRate, 
+        float columnMin, float columnMax, float bottomColumnOffset, float minOffset, float maxOffset, float bushOffset)
     {
         this.level = level;
         this.coinsMultiplier = coinsMultiplier;
@@ -34,5 +43,8 @@ public class DifficultyLevel : ScriptableObject
         this.columnMin = columnMin;
         this.columnMax = columnMax;    
         this.bottomColumnOffset = bottomColumnOffset;
+        this.minOffset = minOffset;
+        this.maxOffset = maxOffset;
+        this.bushOffset = bushOffset;
     }
 }
