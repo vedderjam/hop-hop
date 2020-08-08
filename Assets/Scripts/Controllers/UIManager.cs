@@ -68,7 +68,7 @@ public class UIManager : Singleton<UIManager>
     private void SetUITexts()
     {
         scoreText.text = $"{GameControl.Score}";
-        hiScoreText.text = $"RECORD:{GameControl.Record}";
+        hiScoreText.text = $"RÉCORD: {GameControl.Record}";
         coinsText.text = GameControl.Coins.ToString();
         selectionScreenCoinsText.text = GameControl.Coins.ToString();
     }
@@ -212,7 +212,7 @@ public class UIManager : Singleton<UIManager>
 
     private void UpdateHighScore()
     {
-        hiScoreText.text = $"RECORD:{GameControl.Record}";
+        hiScoreText.text = $"RÉCORD: {GameControl.Record}";
         if(GameControl.NewRecord)
             hiScoreTextAnimator.SetTrigger("Flash");
     }
