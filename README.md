@@ -1,2 +1,2 @@
 # hop-hop
-A Flappy Bird clone with extra features. Made for learning purposes.
+A game inspired by Flappy Bird with extra features. Made for learning purposes. 
