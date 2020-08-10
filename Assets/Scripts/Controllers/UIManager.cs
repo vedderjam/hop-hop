@@ -139,6 +139,7 @@ public class UIManager : Singleton<UIManager>
         gameOverPanel.SetActive(true);
         UpdateRewardText();
         UpdateSelectedBirdInfo();
+        SetWikiForSelectedBird();
     }
 
     private void Idle()
