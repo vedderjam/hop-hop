@@ -11,6 +11,8 @@ public class BirdInfo
     public bool purchased;
     public GameObject prefab;
     public int aggregatedScore;
+    public List<string> infoPills = new List<string>(6){ "Esta información estará disponible en breve.", "Esta información estará disponible en breve.","Esta información estará disponible en breve.","Esta información estará disponible en breve.","Esta información estará disponible en breve.", "Esta información estará disponible en breve."};
+    public List<int> scoreNeededToShowInfoPill = new List<int>(6) { 50, 100, 200, 300, 350, 500};
 }
 
 [CreateAssetMenu]
