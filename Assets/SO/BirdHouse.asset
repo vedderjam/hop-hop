@@ -19,9 +19,39 @@ MonoBehaviour:
     purchased: 1
     prefab: {fileID: 8501833117856623768, guid: ed29cba782eb46d45944fa9edd1579bf,
       type: 3}
+    aggregatedScore: 63
+    infoPills:
+    - "La golondrina com\xFAn o andorina es una especie de ave paseriforme de la
+      familia Hirundinidae de h\xE1bitos migratorios."
+    - "Nombre cient\xEDfico: Hirundo rustica Familia: Hirundinidae Longitud: 15 \u2013
+      20 cm  Masa Corporal: 18 g"
+    - "Su h\xE1bitat preferido  es campo abierto  con vegetaci\xF3n baja, como pasturas,
+      prados  y terrenos agr\xEDcolas, preferentemente  con agua en las cercan\xEDas."
+    - "Se alimenta t\xEDpicamente a siete u ocho metros por encima de aguas poco
+      profundas o del suelo,\u200B a menudo siguiendo animales, humanos o maquinaria
+      agr\xEDcola para atrapar los insectos ahuyentados, pero ocasionalmente captura
+      sus presas de la superficie del agua, paredes o plantas."
+    - "Se reproducen generalmente entre mayo y agosto, pero esto var\xEDa mucho seg\xFAn
+      el lugar. Pueden reproducirse ya en la primera temporada reproductiva posterior
+      a su nacimiento. Generalmente, las golondrinas j\xF3venes no depositan tantos
+      huevos como las adultas."
+    - "Anida t\xEDpicamente en el interior de edificaciones accesibles como graneros
+      y establos y debajo de puentes y embarcaderos. Antes de que hubiera abundancia
+      de estructuras construidas por el ser humano, las golondrinas comunes anidaban
+      sobre acantilados o en cuevas, pero esto es raro en la actualidad."
+    scoreNeededToShowInfoPill: 3200000064000000c80000002c0100005e010000f4010000
   - name: HIRUNDO TAHITICA
     sprite: {fileID: 21300000, guid: d997907ea4626874da129e57eb63d9d7, type: 3}
     prize: 1000
     purchased: 1
     prefab: {fileID: 8501833117856623768, guid: 31b88ece291dafb4b9dce5942cb4544f,
       type: 3}
+    aggregatedScore: 69
+    infoPills:
+    - "Esta informaci\xF3n estar\xE1 disponible en breve."
+    - "Esta informaci\xF3n estar\xE1 disponible en breve."
+    - "Esta informaci\xF3n estar\xE1 disponible en breve."
+    - "Esta informaci\xF3n estar\xE1 disponible en breve."
+    - "Esta informaci\xF3n estar\xE1 disponible en breve."
+    - "Esta informaci\xF3n estar\xE1 disponible en breve."
+    scoreNeededToShowInfoPill: 3200000064000000c80000002c0100005e010000f4010000
