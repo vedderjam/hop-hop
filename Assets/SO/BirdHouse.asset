@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: BirdHouse
   m_EditorClassIdentifier: 
   birdInfos:
-  - name: HIRUNDO RUSTICA
+  - name: "GOLONDRINA COM\xDAN"
     sprite: {fileID: 21300000, guid: e85ee415cbdc69346bffdb79042aa198, type: 3}
     prize: 0
     purchased: 1
     prefab: {fileID: 8501833117856623768, guid: ed29cba782eb46d45944fa9edd1579bf,
       type: 3}
-    aggregatedScore: 63
+    aggregatedScore: 0
     infoPills:
     - "La golondrina com\xFAn o andorina es una especie de ave paseriforme de la
       familia Hirundinidae de h\xE1bitos migratorios."
@@ -40,13 +40,13 @@ MonoBehaviour:
       de estructuras construidas por el ser humano, las golondrinas comunes anidaban
       sobre acantilados o en cuevas, pero esto es raro en la actualidad."
     scoreNeededToShowInfoPill: 3200000064000000c80000002c0100005e010000f4010000
-  - name: HIRUNDO TAHITICA
+  - name: "GOLONDRINA DEL PAC\xCDFICO"
     sprite: {fileID: 21300000, guid: d997907ea4626874da129e57eb63d9d7, type: 3}
     prize: 1000
-    purchased: 1
+    purchased: 0
     prefab: {fileID: 8501833117856623768, guid: 31b88ece291dafb4b9dce5942cb4544f,
       type: 3}
-    aggregatedScore: 69
+    aggregatedScore: 0
     infoPills:
     - "Esta informaci\xF3n estar\xE1 disponible en breve."
     - "Esta informaci\xF3n estar\xE1 disponible en breve."
