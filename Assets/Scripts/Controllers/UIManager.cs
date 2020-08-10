@@ -30,15 +30,22 @@ public class UIManager : Singleton<UIManager>
     public Text finalScoreText;
     public Text rewardText;
     public Text moreRewardText;
+    public Text birdNameText;
+    public Text birdNameInWikiText;
+    public Text aggregatedScoreText;
+    public List<Text> pillTexts;
 
     [Header("Animators")]
     public Animator coinsTextAnimator;
     public Animator coinsImageAnimator;
     public Animator rewardTextAnimator;
-    public Animator hiScoreTextAnimator;
+    public Animator hiScoreTextAnimator;    
+    public Animator notEnoughCoinsAnimator;
+    public Animator moneyEffectAnimator;
 
-    [Space]
+    [Header("Images")]
     public List<Image> difficultyLevelImages;
+    public List<Image> selectedBirdImages;
 
     private void Awake()
     {
@@ -99,7 +106,7 @@ public class UIManager : Singleton<UIManager>
 
                 int i = count; // Dear closure
                 button.onClick.AddListener(delegate{ 
-                    GameControl.Instance.TryToBuyAndOrSelectBird(i); 
+                    GameControl.Instance.TryToBuyAndOrSelectBird(i);
                 });
                 count++;
             }
@@ -130,8 +137,8 @@ public class UIManager : Singleton<UIManager>
     private void GameOver()
     {
         gameOverPanel.SetActive(true);
-
         UpdateRewardText();
+        UpdateSelectedBirdInfo();
     }
 
     private void Idle()
@@ -159,25 +166,49 @@ public class UIManager : Singleton<UIManager>
 
     private void NotEnoughCoins()
     {
-        Debug.Log("Not enough coins");
+        notEnoughCoinsAnimator.gameObject.SetActive(true);
+        notEnoughCoinsAnimator.SetTrigger("Fade");
     }
     
     private void BirdPurchased(int index)
     {
         UpdateCoins();
         HideBirdPrize(index);
+        ShowMoneySpentEffect(index);
     }
-    
+
     private void HideBirdPrize(int index)
     {
         var children = birdsButtons[index].GetComponentsInChildren<RectTransform>(true);
         children[2].gameObject.SetActive(false); // Prize text
         children[3].gameObject.SetActive(false); // Coin Image
     }
-
-    private void BirdSelected()
+            
+    private void ShowMoneySpentEffect(int birdIndex)
     {
-        ToMainUIPanel();
+        moneyEffectAnimator.gameObject.GetComponentInChildren<Text>().text = $"-{birdHouse.birdInfos[birdIndex].prize}";
+        moneyEffectAnimator.gameObject.SetActive(true);
+        moneyEffectAnimator.SetTrigger("Fade");
+    }
+
+    private void BirdSelected(int index)
+    {
+        int counter = selectedBirdImages.Capacity;
+        for(int i = 0; i < counter; i++)
+        {
+            if(i == index)
+                selectedBirdImages[i].gameObject.SetActive(true);
+            else selectedBirdImages[i].gameObject.SetActive(false);
+        }
+        
+        UpdateSelectedBirdInfo();
+        SetWikiForSelectedBird();
+    }
+
+    private void UpdateSelectedBirdInfo()
+    {
+        aggregatedScoreText.text = birdHouse.birdInfos[GameControl.CurrentBirdIndex].aggregatedScore.ToString();
+        birdNameText.text = birdHouse.birdInfos[GameControl.CurrentBirdIndex].name;
     }
 
     public void RaiseGamePausedEvent()
@@ -293,5 +324,26 @@ public class UIManager : Singleton<UIManager>
         birdsSelectionPanel.SetActive(false);
 
         mainUIPanel.SetActive(true);
+    }
+
+    public void SetWikiForSelectedBird()
+    {
+        int currentBird = GameControl.CurrentBirdIndex;
+        int count = pillTexts.Capacity;
+        float rectSize = 0f;
+
+        for(int i = 0; i < count; i++)
+        {
+            if(birdHouse.birdInfos[currentBird].aggregatedScore >= birdHouse.birdInfos[currentBird].scoreNeededToShowInfoPill[i])
+                pillTexts[i].text = birdHouse.birdInfos[currentBird].infoPills[i];
+            else
+            {
+                int remainingPoints = birdHouse.birdInfos[currentBird].scoreNeededToShowInfoPill[i] - birdHouse.birdInfos[currentBird].aggregatedScore;
+                pillTexts[i].text = $"Necesitas {remainingPoints} puntos más para desbloquear esta píldora.";
+            }
+            rectSize += pillTexts[i].preferredHeight;
+        }
+
+        birdNameInWikiText.text = birdNameText.text;
     }
 }
