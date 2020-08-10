@@ -19,15 +19,18 @@ public class Bird : MonoBehaviour
     public AudioClip hopClip;
 
     #region Unity Callbacks
-    
-    private void Awake()
-    {
-        anim = GetComponent<Animator>();
 
+    private void OnEnable()
+    {
         EventBroker.StartPlaying += StartPlaying;
         EventBroker.StartIdling += ResetBird;
         UpdateManager.UpdateEvent += UpdateEvent;
         EventBroker.ChangeDifficultyLevel += ChangeDifficultyLevel;
+    }
+
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
     }
 
     void Start()
@@ -59,7 +62,7 @@ public class Bird : MonoBehaviour
         anim.SetInteger("Speed", -1);
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         EventBroker.StartPlaying -= StartPlaying;
         EventBroker.StartIdling -= ResetBird;
