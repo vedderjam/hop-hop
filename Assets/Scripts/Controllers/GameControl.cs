@@ -50,16 +50,18 @@ public class GameControl : Singleton<GameControl>
         get;
         private set;
     }
+    public static int CurrentBirdIndex
+    {
+        private set;
+        get;
+    }
 
     [Header("Birds")]
     public Transform birdsParentTransform;
     [SerializeField]private GameObject[] birds;
     public GameObject currentBird;
-    private int currentBirdIndex;
+    
     public BirdHouse birdHouse;
-
-    [Space]
-    public Animator moneyEffectAnimator;
 
     private int minReward = 10;
     private int maxReward = 100;
@@ -84,8 +86,8 @@ public class GameControl : Singleton<GameControl>
         birds = new GameObject[birdHouse.birdInfos.Capacity];
         Load();
         currentDifficultyLevel = userData.GetDifficultyLevel();
-        currentBirdIndex = GetCurrentBirdIndex();
-        SelectBird(currentBirdIndex);
+        CurrentBirdIndex = GetCurrentBirdIndex();
+        SelectBird(CurrentBirdIndex, false);
         EventBroker.CallChangeDifficultyLevel();
         Score = 0;
         Record = userData.GetCurrentLevelRecord();
@@ -142,7 +144,7 @@ public class GameControl : Singleton<GameControl>
         //Invoke(nameof(Idle), 2f); Invoked with a button
         audioSource.PlayOneShot(gameOverClip);
         userData.Save();
-        birdHouse.Save(); // REMOVE
+        birdHouse.Save();
     }
     
     private void UpdateBirdAggregatedScore()
@@ -260,7 +262,6 @@ public class GameControl : Singleton<GameControl>
             {
                 Coins = coins;
                 userData.SetCoins(Coins);
-                ShowMoneySpentEffect(index);
                 EventBroker.CallBirdPurchased(index);
                 SelectBird(index);
                 userData.Save();
@@ -276,14 +277,7 @@ public class GameControl : Singleton<GameControl>
 
     }
 
-    private void ShowMoneySpentEffect(int birdIndex)
-    {
-        moneyEffectAnimator.gameObject.GetComponentInChildren<Text>().text = $"-{birdHouse.birdInfos[birdIndex].prize}";
-        moneyEffectAnimator.gameObject.SetActive(true);
-        moneyEffectAnimator.SetTrigger("Fade");
-    }
-
-    private void SelectBird(int index)
+    private void SelectBird(int index, bool playSound = true)
     {
         if(birds[index] == null)
         {
@@ -302,9 +296,11 @@ public class GameControl : Singleton<GameControl>
             currentBird.SetActive(true);
         }
 
-        currentBirdIndex = index;
-        userData.CurrentBirdIndex = currentBirdIndex;
-        EventBroker.CallBirdSelected();
+        CurrentBirdIndex = index;
+        userData.CurrentBirdIndex = CurrentBirdIndex;
+        EventBroker.CallBirdSelected(CurrentBirdIndex);
+        if(playSound)
+            audioSource.PlayOneShot(selectClip);
     }
 
     #endregion
