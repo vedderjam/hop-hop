@@ -10,7 +10,7 @@ public class EventBroker
     public static event Action ChangeDifficultyLevel;
     public static event Action NotEnoughCoins;
     public static event Action<int> BirdPurchased;
-    public static event Action BirdSelected;
+    public static event Action<int> BirdSelected;
     public static event Action GamePaused;
     public static event Action GameResumed;
     public static event Action EarnedRewardedAd;
@@ -50,9 +50,9 @@ public class EventBroker
         BirdPurchased?.Invoke(index);
     }
     
-    public static void CallBirdSelected()
+    public static void CallBirdSelected(int index)
     {
-        BirdSelected?.Invoke();
+        BirdSelected?.Invoke(index);
     }
 
     public static void CallGamePaused()
