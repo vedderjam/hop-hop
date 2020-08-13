@@ -49,7 +49,6 @@ public class TransitionTime : MonoBehaviour
 
     public void Transition()
     {
-        print(dayTime.ToString());
         StopAllCoroutines();
         switch (dayTime)
         {

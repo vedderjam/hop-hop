@@ -58,13 +58,11 @@ public class EventBroker
 
     public static void CallGamePaused()
     {
-        MonoBehaviour.print("Event: PAUSE GAME");
         GamePaused?.Invoke();
     }
 
     public static void CallGameResumed()
     {
-        MonoBehaviour.print("Event: RESUME GAME");
         GameResumed?.Invoke();
     }
 
@@ -75,7 +73,6 @@ public class EventBroker
 
     public static void CallTransitionTime()
     {
-        Debug.Log("Transition Time");
         TimeTransition?.Invoke();
     }
 }
