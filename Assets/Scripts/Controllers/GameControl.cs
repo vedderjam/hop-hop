@@ -55,6 +55,8 @@ public class GameControl : Singleton<GameControl>
         private set;
         get;
     }
+    
+    private static readonly int scoreToTransitionTime = 25;
 
     [Header("Birds")]
     public Transform birdsParentTransform;
@@ -132,6 +134,9 @@ public class GameControl : Singleton<GameControl>
 
         Score++;
         audioSource.PlayOneShot(scoreClip);
+
+        if(Score % scoreToTransitionTime == 0)
+            EventBroker.CallTransitionTime();
     }
 
     private void GameOver()

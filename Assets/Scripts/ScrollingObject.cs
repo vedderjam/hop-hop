@@ -5,13 +5,18 @@ public class ScrollingObject : MonoBehaviour
 {
     private Rigidbody2D rb2d;
     [SerializeField]private float scrollSpeed = -1.5f;
-    public bool isBackGround;
+
+    public SpriteRenderer spriteRenderer;
     private string sortingLayer;
 
     private void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        sortingLayer = GetComponent<SpriteRenderer>().sortingLayerName;
+
+        if (spriteRenderer != null)
+            sortingLayer = spriteRenderer.sortingLayerName;
+        else
+            sortingLayer = GetComponent<SpriteRenderer>().sortingLayerName;
 
         EventBroker.StartPlaying += Setup;
         EventBroker.StartIdling += Setup;

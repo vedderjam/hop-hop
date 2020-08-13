@@ -14,6 +14,7 @@ public class EventBroker
     public static event Action GamePaused;
     public static event Action GameResumed;
     public static event Action EarnedRewardedAd;
+    public static event Action TimeTransition;
 
     public static void CallGameOver()
     {
@@ -70,5 +71,11 @@ public class EventBroker
     public static void CallEarnedRewardedAd()
     {
         EarnedRewardedAd?.Invoke();
+    }
+
+    public static void CallTransitionTime()
+    {
+        Debug.Log("Transition Time");
+        TimeTransition?.Invoke();
     }
 }
