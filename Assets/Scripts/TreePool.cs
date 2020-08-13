@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TreePool : MonoBehaviour
 {
-    public int treePoolSize = 5;
+    public int treePoolSize = 3;
     public List<GameObject> logsPrefabs;
     private float spawnRate = 2f;
     private float minOffset = -1.5f;
