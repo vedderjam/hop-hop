@@ -1671,7 +1671,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: -1.5
-  isBackGround: 0
   spriteRenderer: {fileID: 0}
 --- !u!61 &162640320
 BoxCollider2D:
@@ -3103,7 +3102,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: -1.5
-  isBackGround: 0
   spriteRenderer: {fileID: 0}
 --- !u!61 &419047545
 BoxCollider2D:
@@ -4809,7 +4807,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: -1.5
-  isBackGround: 1
   spriteRenderer: {fileID: 0}
 --- !u!50 &682579927
 Rigidbody2D:
@@ -7064,7 +7061,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f2dbfd93022616469cfed87bb9236c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  treePoolSize: 5
+  treePoolSize: 3
   logsPrefabs:
   - {fileID: 6597109952582033930, guid: c0dffdee7b11a8444ae79932c1faefce, type: 3}
   - {fileID: 6588625659309959399, guid: de3ee6c04cb90d04abbd68787f4918ac, type: 3}
@@ -8320,7 +8317,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: -1.5
-  isBackGround: 1
   spriteRenderer: {fileID: 0}
 --- !u!50 &1300451147
 Rigidbody2D:
@@ -12063,7 +12059,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: -1.5
-  isBackGround: 0
   spriteRenderer: {fileID: 0}
 --- !u!50 &2059946584
 Rigidbody2D:
@@ -12629,7 +12624,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: -1.5
-  isBackGround: 0
   spriteRenderer: {fileID: 0}
 --- !u!61 &2146801198
 BoxCollider2D:
