@@ -56,7 +56,7 @@ public class GameControl : Singleton<GameControl>
         get;
     }
     
-    private static readonly int scoreToTransitionTime = 25;
+    private static readonly int scoreToTransitionTime = 20;
 
     [Header("Birds")]
     public Transform birdsParentTransform;
