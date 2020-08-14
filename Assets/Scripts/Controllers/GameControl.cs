@@ -308,5 +308,10 @@ public class GameControl : Singleton<GameControl>
             audioSource.PlayOneShot(selectClip);
     }
 
+    public void OpenURL(string url)
+    {
+        Application.OpenURL(url);
+    }
+
     #endregion
 }

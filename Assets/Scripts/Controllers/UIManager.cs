@@ -13,6 +13,7 @@ public class UIManager : Singleton<UIManager>
     public GameObject startButton;
     public GameObject difficultyButton;
     public GameObject birdsSelectionButton;
+    public GameObject creditsButton;
     public GameObject gamePausedPanel;
     public GameObject pauseButton;
     public GameObject newRecord;
@@ -151,6 +152,7 @@ public class UIManager : Singleton<UIManager>
         startButton.SetActive(true);
         difficultyButton.SetActive(true);
         birdsSelectionButton.SetActive(true);
+        creditsButton.SetActive(true);
     }
 
     private void BirdScored()
