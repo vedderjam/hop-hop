@@ -19,7 +19,7 @@ MonoBehaviour:
     purchased: 1
     prefab: {fileID: 8501833117856623768, guid: ed29cba782eb46d45944fa9edd1579bf,
       type: 3}
-    aggregatedScore: 0
+    aggregatedScore: 1573
     infoPills:
     - "La golondrina com\xFAn o andorina es una especie de ave paseriforme de la
       familia Hirundinidae de h\xE1bitos migratorios."
@@ -39,19 +39,28 @@ MonoBehaviour:
       y establos y debajo de puentes y embarcaderos. Antes de que hubiera abundancia
       de estructuras construidas por el ser humano, las golondrinas comunes anidaban
       sobre acantilados o en cuevas, pero esto es raro en la actualidad."
-    scoreNeededToShowInfoPill: 3200000064000000c80000002c0100005e010000f4010000
+    scoreNeededToShowInfoPill: 64000000c80000005e010000f40100008a02000020030000
   - name: "GOLONDRINA DEL PAC\xCDFICO"
     sprite: {fileID: 21300000, guid: d997907ea4626874da129e57eb63d9d7, type: 3}
     prize: 1000
-    purchased: 0
+    purchased: 1
     prefab: {fileID: 8501833117856623768, guid: 31b88ece291dafb4b9dce5942cb4544f,
       type: 3}
-    aggregatedScore: 0
+    aggregatedScore: 519
     infoPills:
-    - "Esta informaci\xF3n estar\xE1 disponible en breve."
-    - "Esta informaci\xF3n estar\xE1 disponible en breve."
-    - "Esta informaci\xF3n estar\xE1 disponible en breve."
-    - "Esta informaci\xF3n estar\xE1 disponible en breve."
-    - "Esta informaci\xF3n estar\xE1 disponible en breve."
-    - "Esta informaci\xF3n estar\xE1 disponible en breve."
-    scoreNeededToShowInfoPill: 3200000064000000c80000002c0100005e010000f4010000
+    - "La golondrina del Pac\xEDfico (Hirundo tahitica)\u200B es una especie de ave
+      paseriforme \rde la familia Hirundinidae propia del sudeste asi\xE1tico y las
+      islas del Pac\xEDfico."
+    - "Est\xE1 asociada con las costas, pero se expande tambi\xE9n hacia zonas boscosas."
+    - "Es una golondrina peque\xF1a, con solo 13 cm de longitud. "
+    - "Se diferencia de Hirundo rustica y la cercanamente relacionada \r\nHirundo
+      neoxena por su cola m\xE1s corta y menos bifurcada."
+    - "La golondrina del Pac\xEDfico construye un nido con forma de recipiente con
+      pelotitas de barro recolectadas en su pico bajo los salientes de los acantilados
+      y en estructuras hechas por el hombre como edificios, puentes o t\xFAneles.
+      El nido est\xE1 cubierto con material m\xE1s suave y suelen poner dos o tres
+      huevos. "
+    - "Su comportamiento es similar al de otros insect\xEDvoros a\xE9roeos, como
+      otras golondrinas y vencejos. Es una voladora r\xE1pida y se alimenta de insectos,
+      especialmente moscas, que caza en pleno vuelo."
+    scoreNeededToShowInfoPill: 64000000c80000005e010000f40100008a02000020030000
