@@ -35,6 +35,7 @@ public class UIManager : Singleton<UIManager>
     public Text birdNameInWikiText;
     public Text aggregatedScoreText;
     public List<Text> pillTexts;
+    public Text newInfoPillsText;
 
     [Header("Animators")]
     public Animator coinsTextAnimator;
@@ -61,6 +62,7 @@ public class UIManager : Singleton<UIManager>
         EventBroker.GamePaused += PauseGame;
         EventBroker.GameResumed += ResumeGame;
         EventBroker.EarnedRewardedAd += EventBroker_EarnedRewardedAd;
+        EventBroker.NewInfoPills += EventBroker_NewInfoPills;
     }
 
     private void Start()
@@ -133,6 +135,7 @@ public class UIManager : Singleton<UIManager>
         EventBroker.GamePaused -= PauseGame;
         EventBroker.GameResumed -= ResumeGame;
         EventBroker.EarnedRewardedAd -= EventBroker_EarnedRewardedAd;
+        EventBroker.NewInfoPills -= EventBroker_NewInfoPills;
     }
 
     private void GameOver()
@@ -153,6 +156,7 @@ public class UIManager : Singleton<UIManager>
         difficultyButton.SetActive(true);
         birdsSelectionButton.SetActive(true);
         creditsButton.SetActive(true);
+        newInfoPillsText.gameObject.SetActive(false);
     }
 
     private void BirdScored()
@@ -206,6 +210,16 @@ public class UIManager : Singleton<UIManager>
         
         UpdateSelectedBirdInfo();
         SetWikiForSelectedBird();
+    }
+    
+    private void EventBroker_NewInfoPills(int obj)
+    {
+        if(obj == 1)
+            newInfoPillsText.text = "¡NUEVA PÍLDORA DESBLOQUEADA!";
+        else 
+            newInfoPillsText.text = $"{obj} NUEVAS PÍLDORAS DESBLOQUEADAS!";
+
+        newInfoPillsText.gameObject.SetActive(true);
     }
 
     private void UpdateSelectedBirdInfo()
@@ -329,7 +343,7 @@ public class UIManager : Singleton<UIManager>
         mainUIPanel.SetActive(true);
     }
 
-    public void SetWikiForSelectedBird()
+    private void SetWikiForSelectedBird()
     {
         int currentBird = GameControl.CurrentBirdIndex;
         int count = pillTexts.Capacity;

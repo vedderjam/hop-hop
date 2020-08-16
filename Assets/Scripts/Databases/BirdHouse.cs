@@ -14,6 +14,38 @@ public class BirdInfo
     [TextArea]
     public List<string> infoPills = new List<string>(6){ "Esta información estará disponible en breve.", "Esta información estará disponible en breve.","Esta información estará disponible en breve.","Esta información estará disponible en breve.","Esta información estará disponible en breve.", "Esta información estará disponible en breve."};
     public List<int> scoreNeededToShowInfoPill = new List<int>(6) { 100, 200, 350, 500, 650, 800};
+    
+    public int LastPillIndexShown
+    {
+        get
+        {
+            int i = -1;
+            foreach(var score in scoreNeededToShowInfoPill)
+            {
+                if(aggregatedScore >= score)
+                    i++;
+                else break;
+            }
+            return i;
+        }
+    }
+
+    public int NumberOfNewInfoPillsToShow(int scoreToAdd)
+    {
+        var currentIndex = LastPillIndexShown;
+
+        int i = -1;
+        var newAggregatedScore = aggregatedScore + scoreToAdd;
+
+        foreach(var score in scoreNeededToShowInfoPill)
+        {
+            if(newAggregatedScore >= score)
+                i++;
+            else break;
+        }
+
+        return i - currentIndex;
+    }
 }
 
 [CreateAssetMenu]

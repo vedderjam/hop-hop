@@ -15,6 +15,7 @@ public class EventBroker
     public static event Action GameResumed;
     public static event Action EarnedRewardedAd;
     public static event Action TimeTransition;
+    public static event Action<int> NewInfoPills;
 
     public static void CallGameOver()
     {
@@ -74,5 +75,10 @@ public class EventBroker
     public static void CallTransitionTime()
     {
         TimeTransition?.Invoke();
+    }
+
+    public static void CallNewInfoPills(int newPills)
+    {
+        NewInfoPills?.Invoke(newPills);
     }
 }

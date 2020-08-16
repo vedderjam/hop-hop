@@ -55,6 +55,7 @@ public class GameControl : Singleton<GameControl>
         private set;
         get;
     }
+    public static int lastPillIndexShown;
     
     private static readonly int scoreToTransitionTime = 20;
 
@@ -143,15 +144,27 @@ public class GameControl : Singleton<GameControl>
     {
         UpdateHighScore();
         UpdateRewardAndCoinsAfterLosing();
+        CheckNewInfoPillsToShow(Score);
         UpdateBirdAggregatedScore();
         ResetScore();
         gameState = GameState.GameOver;
-        //Invoke(nameof(Idle), 2f); Invoked with a button
         audioSource.PlayOneShot(gameOverClip);
         userData.Save();
         birdHouse.Save();
     }
     
+    private void GetLastInfoPillIndexShown()
+    {
+        lastPillIndexShown = birdHouse.birdInfos[CurrentBirdIndex].LastPillIndexShown;
+    }
+
+    private void CheckNewInfoPillsToShow(int scoreToAdd)
+    {
+        var number = birdHouse.birdInfos[CurrentBirdIndex].NumberOfNewInfoPillsToShow(scoreToAdd);
+        if(number > 0)
+            EventBroker.CallNewInfoPills(number);
+    }
+
     private void UpdateBirdAggregatedScore()
     {
         birdHouse.birdInfos[userData.CurrentBirdIndex].aggregatedScore += Score;
@@ -217,8 +230,6 @@ public class GameControl : Singleton<GameControl>
 
     private int CalculateMoreReward()
     {
-        //var moreReward = (int)(Reward + (Reward * currentDifficultyLevel.coinsMultiplier));
-        //return Mathf.Clamp(moreReward, minReward, maxReward);
         return Mathf.Clamp(Reward, minReward, maxReward);
     }
 
@@ -279,7 +290,6 @@ public class GameControl : Singleton<GameControl>
             }
         }
         else SelectBird(index);
-
     }
 
     private void SelectBird(int index, bool playSound = true)
@@ -303,6 +313,7 @@ public class GameControl : Singleton<GameControl>
 
         CurrentBirdIndex = index;
         userData.CurrentBirdIndex = CurrentBirdIndex;
+        GetLastInfoPillIndexShown();
         EventBroker.CallBirdSelected(CurrentBirdIndex);
         if(playSound)
             audioSource.PlayOneShot(selectClip);
