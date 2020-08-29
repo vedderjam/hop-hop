@@ -19,6 +19,7 @@ public class GameControl : Singleton<GameControl>
     private AudioClip scoreClip;
     private AudioClip gameOverClip;
     public AudioClip selectClip;
+    public AudioClip cancelClip;
 
     public static int Score
     {
@@ -285,7 +286,7 @@ public class GameControl : Singleton<GameControl>
             }
             else
             {
-                audioSource.PlayOneShot(gameOverClip);
+                audioSource.PlayOneShot(cancelClip);
                 EventBroker.CallNotEnoughCoins();
             }
         }

@@ -104,7 +104,7 @@ public class UIManager : Singleton<UIManager>
                 {
                     texts[1].text = birdInfo.prize.ToString();
                     texts[1].gameObject.SetActive(true);
-                    button.transform.GetChild(2).gameObject.SetActive(true); // activate the coin image
+                    button.transform.GetChild(3).gameObject.SetActive(true); // activate the coin image
                 }
 
                 int i = count; // Dear closure
@@ -157,6 +157,7 @@ public class UIManager : Singleton<UIManager>
         birdsSelectionButton.SetActive(true);
         creditsButton.SetActive(true);
         newInfoPillsText.gameObject.SetActive(false);
+        //playGamesButtonsParent.SetActive(true); //TODO: Reactivar cuando se habilite Games Service
     }
 
     private void BirdScored()
