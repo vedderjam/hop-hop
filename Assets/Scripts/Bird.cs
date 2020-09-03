@@ -6,7 +6,11 @@ public class Bird : MonoBehaviour
 {
     public float upForce = 200f;
 
-    private bool isDead = true;
+    public bool IsDead
+    {
+        get;
+        private set;
+    }
     private Rigidbody2D rb2d;
     private Animator anim;
     private Vector3 initialPosition;
@@ -40,11 +44,13 @@ public class Bird : MonoBehaviour
 
         rb2d.bodyType = RigidbodyType2D.Kinematic;
         rb2d.velocity = Vector2.zero;
+
+        IsDead = true;
     }
 
     private void UpdateEvent()
     {
-        if (!isDead)
+        if (!IsDead)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -56,9 +62,9 @@ public class Bird : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         rb2d.velocity = Vector2.zero;
-        if(!isDead)
+        if(!IsDead)
             EventBroker.CallGameOver();
-        isDead = true;
+        IsDead = true;
         anim.SetInteger("Speed", -1);
     }
 
@@ -82,7 +88,7 @@ public class Bird : MonoBehaviour
     
     private void StartPlaying()
     {
-        isDead = false;
+        IsDead = false;
         ResetBird();
         rb2d.bodyType = RigidbodyType2D.Dynamic;
         Flap();

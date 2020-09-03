@@ -1947,7 +1947,7 @@ GameObject:
   - component: {fileID: 7359454895591914322}
   m_Layer: 0
   m_Name: TreeB
-  m_TagString: Untagged
+  m_TagString: Tree
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1986,6 +1986,10 @@ MonoBehaviour:
   - {fileID: 6588625660119497400}
   - {fileID: 6588625660234044896}
   - {fileID: 6588625659158605756}
+  originalPositionOfBushes:
+  - {x: 0, y: 4, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: -4, z: 0}
   spriteRenderersA:
   - {fileID: 5353456349955386467}
   - {fileID: 4175970039677141558}
@@ -2016,10 +2020,6 @@ MonoBehaviour:
   - {fileID: 4144331629222517445}
   - {fileID: 3140759631573084315}
   - {fileID: 6806349472910951364}
-  originalPositionOfBushes:
-  - {x: 0, y: 4, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: -4, z: 0}
   minOffset: -2
   maxOffset: 2
   bushOffset: 0
@@ -2059,7 +2059,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: -1.5
-  isBackGround: 0
   spriteRenderer: {fileID: 1462151677087569361}
 --- !u!61 &7359454895591914322
 BoxCollider2D:

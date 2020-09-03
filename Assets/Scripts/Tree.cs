@@ -24,7 +24,9 @@ public class Tree : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.GetComponent<Bird>() != null)
+        var bird = collision.GetComponent<Bird>();
+        
+        if(bird != null && !bird.IsDead)
         {
             EventBroker.CallBirdScored();
         }
@@ -67,14 +69,14 @@ public class Tree : MonoBehaviour
                 sprites[i].sortingLayerName = visibleLayer;
                 var collider = sprites[i].gameObject.GetComponent<PolygonCollider2D>();
                 if(collider != null)
-                    collider.isTrigger = false;
+                    collider.enabled = false;
             }
             else
             {
                 sprites[i].sortingLayerName = nonVisibleLayer;
                 var collider = sprites[i].gameObject.GetComponent<PolygonCollider2D>();
                 if(collider != null)
-                    collider.isTrigger = true;
+                    collider.enabled = true;
             }
         }
     }
